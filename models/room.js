@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
     tableName: 'rooms',
   });
   Room.associate = function (models) {
-    Room.hasMany(models.Message);
+    Room.hasMany(models.Message, { foreignKey: 'room', sourceKey: 'id' });
   };
   return Room;
 };

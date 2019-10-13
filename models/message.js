@@ -10,6 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     Message.belongsTo(models.User, {
       onDelete: 'CASCADE',
       foreignKey: {
+        name: 'user',
         allowNull: false,
       },
     });
@@ -17,6 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     Message.belongsTo(models.Room, {
       onDelete: 'CASCADE',
       foreignKey: {
+        name: 'room',
         allowNull: false,
       },
     });
