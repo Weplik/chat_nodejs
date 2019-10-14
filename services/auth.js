@@ -3,8 +3,7 @@ const jwt = require('jsonwebtoken');
 const { User } = require('../models');
 const RequestError = require('../helpers/RequestError');
 
-const env = process.env.NODE_ENV || 'development';
-const { jwt: config } = require('../config/config')[env];
+const { jwt: config } = require('../config/config');
 
 const signIn = async (req, res) => {
   const errors = validationResult(req);

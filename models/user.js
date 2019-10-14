@@ -1,7 +1,6 @@
 const bcrypt = require('bcrypt');
 
-const env = process.env.NODE_ENV || 'development';
-const { password: config } = require('../config/config')[env];
+const { password: config } = require('../config/config');
 
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {

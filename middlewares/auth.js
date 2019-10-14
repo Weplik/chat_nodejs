@@ -1,8 +1,7 @@
 const jwt = require('jsonwebtoken');
 const RequestError = require('../helpers/RequestError');
 
-const env = process.env.NODE_ENV || 'development';
-const { jwt: config } = require('../config/config')[env];
+const { jwt: config } = require('../config/config');
 
 const auth = async (req, res, next) => {
   const token = req.get('Authorization') ? req.get('Authorization').slice(7) : null;
