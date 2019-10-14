@@ -4,9 +4,10 @@ module.exports = (sequelize, DataTypes) => {
     title: DataTypes.STRING,
   }, {
     tableName: 'rooms',
+    underscored: true,
   });
   Room.associate = function (models) {
-    Room.hasMany(models.Message, { foreignKey: 'room', sourceKey: 'id' });
+    Room.hasMany(models.Message, { foreignKey: 'roomId', sourceKey: 'id' });
   };
   return Room;
 };

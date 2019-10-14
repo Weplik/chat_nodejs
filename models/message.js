@@ -4,13 +4,15 @@ module.exports = (sequelize, DataTypes) => {
     text: DataTypes.STRING,
   }, {
     tableName: 'messages',
+    underscored: true,
   });
 
   Message.associate = function (models) {
     Message.belongsTo(models.User, {
+      as: 'user',
       onDelete: 'CASCADE',
       foreignKey: {
-        name: 'user',
+        name: 'userId',
         allowNull: false,
       },
     });
@@ -18,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
     Message.belongsTo(models.Room, {
       onDelete: 'CASCADE',
       foreignKey: {
-        name: 'room',
+        name: 'roomId',
         allowNull: false,
       },
     });

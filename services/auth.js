@@ -6,7 +6,7 @@ const RequestError = require('../helpers/RequestError');
 const env = process.env.NODE_ENV || 'development';
 const { jwt: config } = require('../config/config')[env];
 
-const login = async (req, res) => {
+const signIn = async (req, res) => {
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
@@ -72,7 +72,28 @@ const generateTokens = async (req, res) => {
   });
 };
 
+const signUp = async (req, res) => {
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    throw new RequestError(422, 'Invalid data', errors.array());
+  }
+
+  const user = req.body;
+
+  const isExistUser = !!(await User.findByPk(user.username));
+
+  if (isExistUser) {
+    throw new RequestError(400, 'User is exist');
+  }
+
+  await User.create(user);
+
+  return res.sendStatus(201);
+};
+
 module.exports = {
-  login,
-  generateTokens
+  signIn,
+  generateTokens,
+  signUp,
 };

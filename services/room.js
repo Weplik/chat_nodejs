@@ -1,5 +1,5 @@
 const { validationResult } = require('express-validator');
-const { Room, Message } = require('../models');
+const { Room, Message, User } = require('../models');
 const RequestError = require('../helpers/RequestError');
 
 const getRooms = async (req, res) => {
@@ -26,7 +26,17 @@ const getMessagesByRoomId = async (req, res) => {
     throw new RequestError(404, 'Room not found');
   }
 
-  const messages = await Message.findAll({ where: { room: roomId }, limit, offset });
+  const messages = await Message.findAll({
+    where: { roomId },
+    include: [{
+      model: User, as: 'user', attributes: ['username', 'firstname', 'lastname'],
+    }],
+    attributes: {
+      exclude: ['userId'],
+    },
+    limit,
+    offset,
+  });
 
   return res.json(messages);
 };

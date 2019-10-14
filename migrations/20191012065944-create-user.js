@@ -19,17 +19,14 @@ module.exports = {
       allowNull: false,
     },
     createdAt: {
+      field: 'created_at',
       allowNull: false,
       type: Sequelize.DATE,
     },
     updatedAt: {
+      field: 'updated_at',
       allowNull: false,
       type: Sequelize.DATE,
-    },
-    isEnabled: {
-      field: 'is_enabled',
-      type: Sequelize.BOOLEAN,
-      defaultValue: true,
     },
   }),
   down: (queryInterface) => queryInterface.dropTable('users'),

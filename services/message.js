@@ -9,15 +9,15 @@ const createMessage = async (req, res) => {
     throw new RequestError(422, 'Invalid data', errors.array());
   }
 
-  const { body: msg, user } = req;
+  const { body: msg, user: userId } = req;
 
-  const room = await Room.findByPk(msg.room);
+  const room = await Room.findByPk(msg.roomId);
 
   if (!room) {
     throw new RequestError(404, 'Room not found');
   }
 
-  const savedMsg = await Message.create({ ...msg, user });
+  const savedMsg = await Message.create({ ...msg, userId });
 
   return res.status(201).json(savedMsg);
 };

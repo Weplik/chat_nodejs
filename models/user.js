@@ -1,5 +1,8 @@
 const bcrypt = require('bcrypt');
 
+const env = process.env.NODE_ENV || 'development';
+const { password: config } = require('../config/config')[env];
+
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
     username: {
@@ -15,26 +18,37 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    isEnabled: {
-      field: 'is_enabled',
-      type: DataTypes.BOOLEAN,
-      defaultValue: true,
-    },
     password: {
       type: DataTypes.STRING,
       allowNull: false,
     },
   }, {
     tableName: 'users',
+    underscored: true,
+    defaultScope: {
+      attributes: { exclude: ['password'] },
+    },
   });
 
   User.associate = function (models) {
-    User.hasMany(models.Message, { foreignKey: 'user', sourceKey: 'username' });
+    User.hasMany(models.Message, { foreignKey: 'userId', sourceKey: 'username', as: 'user' });
   };
 
   User.prototype.isCorrectPassword = function (password) {
     return bcrypt.compare(password, this.password);
   };
+
+  User.beforeCreate((user, options) => new Promise((resolve, reject) => {
+    bcrypt.hash(user.password, config.salt, (err, hash) => {
+      if (err) {
+        reject(err);
+      } else {
+        // eslint-disable-next-line no-param-reassign
+        user.password = hash;
+        resolve(user, options);
+      }
+    });
+  }));
 
   return User;
 };

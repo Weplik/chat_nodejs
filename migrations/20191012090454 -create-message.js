@@ -11,14 +11,17 @@ module.exports = {
       type: Sequelize.STRING,
     },
     createdAt: {
+      field: 'created_at',
       allowNull: false,
       type: Sequelize.DATE,
     },
     updatedAt: {
+      field: 'updated_at',
       allowNull: false,
       type: Sequelize.DATE,
     },
-    user: {
+    userId: {
+      field: 'user_id',
       type: Sequelize.STRING,
       onDelete: 'CASCADE',
       allowNull: false,
@@ -27,7 +30,8 @@ module.exports = {
         key: 'username',
       },
     },
-    room: {
+    roomId: {
+      field: 'room_id',
       type: Sequelize.INTEGER,
       onDelete: 'CASCADE',
       allowNull: false,
