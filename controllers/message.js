@@ -5,6 +5,11 @@ const authMiddleware = require('../middlewares/auth');
 
 const router = express.Router();
 
-router.post('/', authMiddleware, [check('roomId').exists(), check('text').exists()], messageService.createMessage);
+router.post(
+  '/',
+  authMiddleware,
+  [check('roomId').exists(), check('text').exists()],
+  messageService.createMessage
+);
 
 module.exports = router;

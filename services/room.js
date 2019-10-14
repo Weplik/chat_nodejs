@@ -28,9 +28,13 @@ const getMessagesByRoomId = async (req, res) => {
 
   const messages = await Message.findAll({
     where: { roomId },
-    include: [{
-      model: User, as: 'user', attributes: ['username', 'firstname', 'lastname'],
-    }],
+    include: [
+      {
+        model: User,
+        as: 'user',
+        attributes: ['username', 'firstname', 'lastname'],
+      },
+    ],
     attributes: {
       exclude: ['userId'],
     },

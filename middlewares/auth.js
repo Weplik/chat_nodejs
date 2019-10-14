@@ -4,7 +4,9 @@ const RequestError = require('../helpers/RequestError');
 const { jwt: config } = require('../config/config');
 
 const auth = async (req, res, next) => {
-  const token = req.get('Authorization') ? req.get('Authorization').slice(7) : null;
+  const token = req.get('Authorization')
+    ? req.get('Authorization').slice(7)
+    : null;
 
   if (!token) {
     throw new RequestError(401, 'Unauthorized');

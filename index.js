@@ -17,6 +17,8 @@ app.use('/api', router);
 
 app.use(error);
 
-isConnectedToDB().then(() => {
-  app.listen(8000, () => logger.info('Application successfully started'));
-}).catch((err) => logger.error(err.message));
+isConnectedToDB()
+  .then(() => {
+    app.listen(8000, () => logger.info('Application successfully started'));
+  })
+  .catch(err => logger.error(err.message));

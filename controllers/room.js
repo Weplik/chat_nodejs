@@ -6,6 +6,10 @@ const router = express.Router();
 
 router.get('/', roomService.getRooms);
 
-router.get('/:roomId/messages', [param('roomId').exists()], roomService.getMessagesByRoomId);
+router.get(
+  '/:roomId/messages',
+  [param('roomId').exists()],
+  roomService.getMessagesByRoomId
+);
 
 module.exports = router;

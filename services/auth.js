@@ -29,13 +29,13 @@ const signIn = async (req, res) => {
   const accessToken = jwt.sign(
     { username: user.dataValues.username },
     config.secret,
-    { expiresIn: config.accessTokenExpiresIn },
+    { expiresIn: config.accessTokenExpiresIn }
   );
 
   const refreshToken = jwt.sign(
     { username: user.dataValues.username },
     config.secret,
-    { expiresIn: config.refreshTokenExpiresIn },
+    { expiresIn: config.refreshTokenExpiresIn }
   );
 
   return res.json({
@@ -53,17 +53,13 @@ const generateTokens = async (req, res) => {
     throw new RequestError(403, 'Unauthorized');
   }
 
-  const accessToken = jwt.sign(
-    { username },
-    config.secret,
-    { expiresIn: config.accessTokenExpiresIn },
-  );
+  const accessToken = jwt.sign({ username }, config.secret, {
+    expiresIn: config.accessTokenExpiresIn,
+  });
 
-  const refreshToken = jwt.sign(
-    { username },
-    config.secret,
-    { expiresIn: config.refreshTokenExpiresIn },
-  );
+  const refreshToken = jwt.sign({ username }, config.secret, {
+    expiresIn: config.refreshTokenExpiresIn,
+  });
 
   return res.json({
     accessToken,

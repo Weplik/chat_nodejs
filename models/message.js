@@ -1,13 +1,16 @@
-
 module.exports = (sequelize, DataTypes) => {
-  const Message = sequelize.define('Message', {
-    text: DataTypes.STRING,
-  }, {
-    tableName: 'messages',
-    underscored: true,
-  });
+  const Message = sequelize.define(
+    'Message',
+    {
+      text: DataTypes.STRING,
+    },
+    {
+      tableName: 'messages',
+      underscored: true,
+    }
+  );
 
-  Message.associate = function (models) {
+  Message.associate = function(models) {
     Message.belongsTo(models.User, {
       as: 'user',
       onDelete: 'CASCADE',
