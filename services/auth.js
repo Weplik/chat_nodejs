@@ -1,17 +1,10 @@
-const { validationResult } = require('express-validator');
 const jwt = require('jsonwebtoken');
 const { User } = require('../models');
-const RequestError = require('../helpers/RequestError');
+const RequestError = require('../helpers/requestError');
 
 const { jwt: config } = require('../config/config');
 
 const signIn = async (req, res) => {
-  const errors = validationResult(req);
-
-  if (!errors.isEmpty()) {
-    throw new RequestError(422, 'Invalid data', errors.array());
-  }
-
   const { username, password } = req.body;
 
   const user = await User.findByPk(username);
@@ -68,12 +61,6 @@ const generateTokens = async (req, res) => {
 };
 
 const signUp = async (req, res) => {
-  const errors = validationResult(req);
-
-  if (!errors.isEmpty()) {
-    throw new RequestError(422, 'Invalid data', errors.array());
-  }
-
   const user = req.body;
 
   const isExistUser = !!(await User.findByPk(user.username));

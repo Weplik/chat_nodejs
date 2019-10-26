@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const RequestError = require('../helpers/RequestError');
+const RequestError = require('../helpers/requestError');
 
 const { jwt: config } = require('../config/config');
 

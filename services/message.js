@@ -1,15 +1,8 @@
-const { validationResult } = require('express-validator');
 const { Message, Room } = require('../models');
-const RequestError = require('../helpers/RequestError');
+const RequestError = require('../helpers/requestError');
 const { socket } = require('../config/app');
 
 const createMessage = async (req, res) => {
-  const errors = validationResult(req);
-
-  if (!errors.isEmpty()) {
-    throw new RequestError(422, 'Invalid data', errors.array());
-  }
-
   const { body: msg, user: userId } = req;
 
   const room = await Room.findByPk(msg.roomId);

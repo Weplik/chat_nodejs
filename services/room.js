@@ -1,6 +1,5 @@
-const { validationResult } = require('express-validator');
 const { Room, Message, User } = require('../models');
-const RequestError = require('../helpers/RequestError');
+const RequestError = require('../helpers/requestError');
 
 const getRooms = async (req, res) => {
   const { limit = 20, offset = 0 } = req.query;
@@ -11,12 +10,6 @@ const getRooms = async (req, res) => {
 };
 
 const getMessagesByRoomId = async (req, res) => {
-  const errors = validationResult(req);
-
-  if (!errors.isEmpty()) {
-    throw new RequestError(422, 'Invalid query params', errors.array());
-  }
-
   const { limit = 20, offset = 0 } = req.query;
   const { roomId } = req.params;
 
